@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head><meta http-equiv="cache-control" content="no-cache"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="-1"><style type="text/css"></style>  
+  
+  
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Task Manager</title>
+      <style>
+          body {
+              font-family: Arial, sans-serif;
+              background-color: #f4f4f4;
+              margin: 0;
+              padding: 20px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 100vh;
+          }
+          .container {
+              background-color: white;
+              padding: 20px;
+              border-radius: 5px;
+              box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+              width: 400px;
+          }
+          h1 {
+              text-align: center;
+          }
+          #taskInput {
+              width: 100%;
+              padding: 10px;
+              margin-bottom: 10px;
+              border: 1px solid #ddd;
+              border-radius: 4px;
+          }
+          #addTaskBtn {
+              width: 100%;
+              padding: 10px;
+              background-color: #28a745;
+              border: none;
+              color: white;
+              border-radius: 4px;
+              cursor: pointer;
+              font-size: 16px;
+          }
+          #addTaskBtn:hover {
+              background-color: #218838;
+          }
+          ul {
+              list-style-type: none;
+              padding: 0;
+          }
+          li {
+              background-color: #f8f9fa;
+              margin: 5px 0;
+              padding: 10px;
+              border-radius: 4px;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+          }
+          li.completed {
+              text-decoration: line-through;
+              color: #6c757d;
+          }
+          .taskActions {
+              display: flex;
+              gap: 10px;
+          }
+          .completeBtn, .deleteBtn {
+              cursor: pointer;
+              padding: 5px;
+              border-radius: 4px;
+              border: none;
+              color: white;
+          }
+          .completeBtn {
+              background-color: #007bff;
+          }
+          .completeBtn:hover {
+              background-color: #0069d9;
+          }
+          .deleteBtn {
+              background-color: #dc3545;
+          }
+          .deleteBtn:hover {
+              background-color: #c82333;
+          }
+      </style>
+  </head>
+  <body>
+      <div class="container">
+          <h1>Task Manager</h1>
+          <input type="text" id="taskInput" placeholder="Enter a new task...">
+          <button id="addTaskBtn">Add Task</button>
+          <ul id="taskList"></ul>
+      </div>
+
+      <script>
+          document.addEventListener('DOMContentLoaded', function () {
+              const taskInput = document.getElementById('taskInput');
+              const addTaskBtn = document.getElementById('addTaskBtn');
+              const taskList = document.getElementById('taskList');
+
+              function createTaskElement(taskText) {
+                  const li = document.createElement('li');
+
+                  const span = document.createElement('span');
+                  span.textContent = taskText;
+
+                  const taskActions = document.createElement('div');
+                  taskActions.className = 'taskActions';
+
+                  const completeBtn = document.createElement('button');
+                  completeBtn.className = 'completeBtn';
+                  completeBtn.textContent = 'Complete';
+                  completeBtn.addEventListener('click', function () {
+                      li.classList.toggle('completed');
+                  });
+
+                  const deleteBtn = document.createElement('button');
+                  deleteBtn.className = 'deleteBtn';
+                  deleteBtn.textContent = 'Delete';
+                  deleteBtn.addEventListener('click', function () {
+                      li.remove();
+                  });
+
+                  taskActions.appendChild(completeBtn);
+                  taskActions.appendChild(deleteBtn);
+
+                  li.appendChild(span);
+                  li.appendChild(taskActions);
+
+                  return li;
+              }
+
+              addTaskBtn.addEventListener('click', function () {
+                  const taskText = taskInput.value.trim();
+                  if (taskText !== '') {
+                      const taskElement = createTaskElement(taskText);
+                      taskList.appendChild(taskElement);
+                      taskInput.value = '';
+                  }
+              });
+
+              taskInput.addEventListener('keydown', function (e) {
+                  if (e.key === 'Enter') {
+                      addTaskBtn.click();
+                  }
+              });
+          });
+      </script>
+  
+  
+<script></script></body>
